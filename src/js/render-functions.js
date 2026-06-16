@@ -2,6 +2,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
@@ -15,16 +16,21 @@ export function clearGallery() {
 export function createGallery(images) {
   const markup = images
     .map(
-      img => `
-      <li>
-        <a href="${img.largeImageURL}">
-          <img src="${img.webformatURL}" alt="${img.tags}" />
+      image => `
+      <li class="gallery-item">
+        <a href="${image.largeImageURL}">
+          <img
+            src="${image.webformatURL}"
+            alt="${image.tags}"
+          />
         </a>
 
-        <p>Likes: ${img.likes}</p>
-        <p>Views: ${img.views}</p>
-        <p>Comments: ${img.comments}</p>
-        <p>Downloads: ${img.downloads}</p>
+        <div>
+          <p>Likes: ${image.likes}</p>
+          <p>Views: ${image.views}</p>
+          <p>Comments: ${image.comments}</p>
+          <p>Downloads: ${image.downloads}</p>
+        </div>
       </li>
     `
     )
@@ -33,4 +39,12 @@ export function createGallery(images) {
   gallery.insertAdjacentHTML('beforeend', markup);
 
   lightbox.refresh();
+}
+
+export function showLoader() {
+  loader.style.display = 'block';
+}
+
+export function hideLoader() {
+  loader.style.display = 'none';
 }
