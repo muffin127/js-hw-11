@@ -23,8 +23,8 @@ form.addEventListener('submit', event => {
   showLoader();
 
   getImagesByQuery(query)
-    .then(res => {
-      const images = res.data.hits;
+    .then(data => {
+      const images = data.hits;
 
       if (images.length === 0) {
         iziToast.error({
