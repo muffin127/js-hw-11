@@ -23,10 +23,8 @@ form.addEventListener('submit', event => {
   showLoader();
 
   getImagesByQuery(query)
-    .then(data => {
-      const images = data.hits;
-
-      if (images.length === 0) {
+    .then(({ hits }) => {
+      if (hits.length === 0) {
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
@@ -34,8 +32,9 @@ form.addEventListener('submit', event => {
         return;
       }
 
-      createGallery(images);
+      createGallery(hits);
     })
+
     .catch(() => {
       iziToast.error({
         message: 'Something went wrong. Try again!',
